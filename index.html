@@ -216,7 +216,7 @@ mark{background:var(--mark);color:inherit;padding:0 1px;border-radius:3px}
         ts.forEach(function(t){var f=findAll(pg.nt,t);if(f.length){any=true;rs=rs.concat(f);}else if(all)ok=false;});
         if(all?ok:any){hits.push({pg:pg,n:rs.length,rs:rs});}
       });
-      hits.sort(function(a,b){return b.n-a.n||a.pg.n-b.pg.n;});
+      hits.sort(function(a,b){var fa=/^\d+$/.test(a.pg.p)?0:1,fb=/^\d+$/.test(b.pg.p)?0:1;return fa-fb||b.n-a.n||a.pg.n-b.pg.n;});
       var shown=hits.slice(0,80);
       $('stat').innerHTML='<b>'+hits.length+'쪽</b>에서 찾았어요'+(hits.length>80?' (많이 나온 80쪽만 보여요 — 낱말을 더 붙여 보세요)':'')+' · '+esc(book.title);
       if(!hits.length){res.innerHTML='<div class="empty">없어요. 낱말을 짧게 하거나(예: 「월차수당」→「월차」), 다른 지침 묶음을 눌러 보세요.</div>';return;}
