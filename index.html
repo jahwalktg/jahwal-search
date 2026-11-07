@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="index, follow">
+<title>자활 지침 찾기</title>
+<meta name="description" content="낱말을 치면 2026년 자활사업 안내·자산형성 안내·국민기초생활보장 사업안내 전체에서 그 문장과 쪽수가 바로 나옵니다. 쪽 전체 보기, 근거(쪽수+문장) 복사. 인터넷으로 보내지 않고 이 PC 안에서 찾습니다. 출처: 보건복지부.">
+<link rel="canonical" href="https://jahwalktg.github.io/jahwal-tools/guide-search/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="지역자활센터 업무 도구">
+<meta property="og:title" content="자활 지침 찾기 | 지역자활센터 업무 도구">
+<meta property="og:description" content="낱말을 치면 2026년 자활사업 안내·자산형성 안내·국민기초생활보장 사업안내 전체에서 그 문장과 쪽수가 바로 나옵니다. 쪽 전체 보기, 근거(쪽수+문장) 복사. 인터넷으로 보내지 않고 이 PC 안에서 찾습니다. 출처: 보건복지부.">
+<meta property="og:url" content="https://jahwalktg.github.io/jahwal-tools/guide-search/">
+<meta property="og:image" content="https://jahwalktg.github.io/jahwal-tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="자활 지침 찾기">
+<meta property="og:description" content="낱말을 치면 자활사업 안내·자산형성 안내·국민기초생활보장 사업안내 전체에서 문장과 쪽수가 바로 나옵니다.">
+<meta property="og:title" content="자활 지침 찾기">
+<meta property="og:description" content="낱말을 치면 자활사업 안내·자산형성 안내·국민기초생활보장 사업안내 전체에서 문장과 쪽수가 바로 나옵니다.">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --blue:#1A6EFF; --navy:#1A2B50; --red:#E63946;
+  --bg:#F3F6FC; --surface:#FFFFFF; --line:#D5DDEC;
+  --text:#1A2B50; --muted:#5B6885;
+  --blue-bg:#E8F0FF; --amber:#8A5A00; --amber-bg:#FFF1CC; --amber-line:#E5B93C;
+  --red-bg:#FDECEE; --btn-text:#FFFFFF; --mark:#FFE88A;
+  --font:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --blue:#6BA1FF; --navy:#27407A; --red:#FF6B76;
+    --bg:#0E1630; --surface:#17224A; --line:#2F3F73;
+    --text:#EAF0FF; --muted:#A9B6DA;
+    --blue-bg:#1C2D5E; --amber:#FFD166; --amber-bg:#3A2F10; --amber-line:#8F7420;
+    --red-bg:#3D1620; --btn-text:#0E1630; --mark:#6B5A12;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.page{max-width:1120px;margin:0 auto;padding:20px 16px 32px}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.crumb{margin:0;color:var(--muted);font-size:15px}
+.crumb a{color:inherit;text-decoration:underline dotted;text-underline-offset:3px}
+h1{margin:2px 0 0;font-size:30px;line-height:1.25;font-weight:700}
+.stage{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:20px}
+.intro{margin:0 0 12px;font-size:16px;color:var(--muted);line-height:1.6}
+.books{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.chip{min-height:42px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:15px}
+.chip.on{background:var(--blue);border-color:var(--blue);color:var(--btn-text)}
+.chip small{font-weight:400;opacity:.8;margin-left:4px}
+.sbox{position:relative}
+.sbox input{width:100%;min-height:58px;padding:10px 54px 10px 16px;border:2px solid var(--blue);border-radius:14px;background:var(--surface);font-size:20px}
+.sbox button{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:10px;background:none;color:var(--muted);font-size:20px}
+.faq{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.faq button{min-height:36px;padding:0 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-size:14px}
+.faq button:hover{border-color:var(--blue)}
+.stat{margin:12px 0 6px;font-size:15px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.stat b{color:var(--text)}
+.opts{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}
+.opts label{display:inline-flex;gap:5px;align-items:center}
+.res{display:grid;gap:8px}
+.hit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface)}
+.hit .pg{min-width:56px;text-align:center;font-weight:800;color:var(--blue);background:var(--blue-bg);border-radius:10px;padding:6px 8px;font-size:15px;line-height:1.2;cursor:pointer;border:0}
+.hit .pg small{display:block;font-weight:500;font-size:11px;opacity:.75}
+.hit .sn{font-size:15px;line-height:1.55}
+.hit .sn p{margin:0 0 4px}
+.hit .sn p+p{border-top:1px dotted var(--line);padding-top:4px}
+.hit .more{font-size:13px;color:var(--muted)}
+.hit .tools{display:grid;gap:4px}
+.ib{min-height:34px;padding:0 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);font-size:13px;white-space:nowrap}
+mark{background:var(--mark);color:inherit;padding:0 1px;border-radius:3px}
+.empty{padding:18px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:12px}
+/* 쪽 보기 */
+.pv{position:fixed;inset:0;background:rgba(10,20,45,.55);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
+.pv.on{display:flex}
+.pvbox{width:min(900px,100%);max-height:calc(100% - 32px);display:flex;flex-direction:column;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.pvh{display:flex;gap:8px;align-items:center;padding:10px 14px;border-bottom:1.5px solid var(--line);flex-wrap:wrap}
+.pvh b{font-size:17px}
+.pvh .sp{flex:1}
+.pvb{overflow:auto;padding:16px 18px;white-space:pre-wrap;font-size:16px;line-height:1.7}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0;min-height:1.2em}
+.rule{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:var(--bg);border:1.5px solid var(--line);font-size:14px;color:var(--muted);line-height:1.5}
+.rule strong{color:var(--text)}
+.uses{margin-top:20px;padding:0 4px}
+.uses h2{font-size:19px;margin:0 0 8px}
+.uses ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.uses li{margin:0;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);font-size:15px;line-height:1.6}
+.uses li strong{display:block;margin-bottom:2px;font-size:16px;color:var(--blue)}
+.foot{margin-top:24px;padding:14px 4px 0;border-top:1.5px solid var(--line);font-size:15px;color:var(--muted)}
+.foot p{margin:2px 0}
+@media (max-width:560px){.hit{grid-template-columns:auto minmax(0,1fr)}.hit .tools{grid-column:2;grid-auto-flow:column;justify-content:start}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 style="display:flex;gap:12px;align-items:center"><img src="img/hello.png" alt="굿균" width="56" style="width:56px;height:auto">자활 지침 찾기</h1>
+      <p class="crumb">낱말 하나로 지침 쪽수를 바로 — 보건복지부 2026년 자활사업 안내·자산형성 안내·국민기초생활보장 사업안내</p>
+    </div>
+  </header>
+
+  <main class="stage">
+    <p class="intro">낱말을 치면 지침 전체에서 그 문장과 <b>쪽수</b>가 바로 나옵니다. PDF를 열어 뒤질 필요가 없어요. 쪽수를 누르면 그 쪽 전체를 보고, 「근거 복사」로 쪽수와 문장을 공문·보고서에 붙입니다.</p>
+    <div class="books" id="books"></div>
+    <div class="sbox"><input id="q" type="search" placeholder="예: 월차, 실비, 조건이행, 자활근로소득공제, 상실 신고" autocomplete="off" autofocus><button type="button" id="btnX" aria-label="지우기">×</button></div>
+    <div class="faq" id="faq"></div>
+    <div class="stat"><span id="stat">자료를 불러오는 중…</span><span class="opts"><label><input type="checkbox" id="optSpace" checked> 띄어쓰기 무시</label><label><input type="checkbox" id="optAll" checked> 낱말 여러 개면 모두 있는 쪽만</label></span></div>
+    <div class="res" id="res"></div>
+    <p class="note" id="note" role="status"></p>
+    <p class="rule"><strong>출처: 보건복지부 『2026년 자활사업 안내』</strong> · 『2026년 자활사업안내(Ⅱ) 자산형성지원 통장사업 안내』(보건복지부·한국자활복지개발원) · 『2026년 국민기초생활보장 사업안내』. 복지부가 인터넷에 공개한 자료의 본문 글자를 그대로 넣었고, 쪽수는 책에 인쇄된 쪽입니다. 표·그림은 글자만 남아 줄이 섞일 수 있으니 중요한 것은 원문 PDF의 그 쪽을 확인하세요. 해마다 새 지침이 나오면 바꿉니다.</p>
+  </main>
+
+  <section class="uses" aria-labelledby="usesTitle">
+    <h2 id="usesTitle">이럴 때 좋아요</h2>
+    <ul>
+      <li><strong>참여자가 물었을 때</strong> "월차가 몇 개예요?" — 「월차」를 치고 76쪽을 열어 그 자리에서 답합니다.</li>
+      <li><strong>공문·보고서 근거</strong> 「근거 복사」를 누르면 『2026년 자활사업 안내』 p.○○ 「…」 모양으로 복사됩니다.</li>
+      <li><strong>AI에 물어보기 전에</strong> 지침 문장을 먼저 찾아 AI 주문서에 붙이면 지어낸 답이 줄어요. <a href="https://jahwalktg.github.io/jahwal-tools/prompt-guide/index.html" target="_blank" rel="noopener">지침에 물어보기 주문서</a></li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <p><strong>이 PC 안에서만 찾습니다.</strong> 친 글자는 인터넷으로 보내지 않습니다. 저장하는 것도 없습니다.</p>
+    <p>만든 사람: 자활전문강사 김태균 · 의견 <a href="mailto:jahwalktg@gmail.com?subject=%EC%9E%90%ED%99%9C%20%EC%A7%80%EC%B9%A8%20%EC%B0%BE%EA%B8%B0%20%EC%9D%98%EA%B2%AC">jahwalktg@gmail.com</a> · 만든 사람의 다른 도구: <a href="https://jahwalktg.github.io/jahwal-tools/" target="_blank" rel="noopener">지역자활센터 업무 도구</a> · <a href="https://jahwalktg.github.io/gukgicho/" target="_blank" rel="noopener">국기초 가늠표</a> · <a href="https://jahwalktg.github.io/jahwal-start/" target="_blank" rel="noopener">어서와, 자활은 처음이지?</a></p>
+  </footer>
+</div>
+
+<div class="pv" id="pv" aria-modal="true" role="dialog"><div class="pvbox">
+  <div class="pvh"><button class="ib" id="pvPrev" type="button">◀ 앞 쪽</button><b id="pvTitle"></b><span class="sp"></span><button class="ib" id="pvCopy" type="button">이 쪽 근거 복사</button><button class="ib" id="pvNext" type="button">다음 쪽 ▶</button><button class="ib" id="pvClose" type="button">닫기</button></div>
+  <div class="pvb" id="pvBody"></div>
+</div></div>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var BOOKS=[['jahwal','자활사업 안내','413쪽'],['asset','자산형성 안내','196쪽'],['basic','기초생활보장 안내','520쪽']];
+  var FAQ={jahwal:['월차','주차수당','실비','조건이행','근무시간','유급휴일','지각','자활근로소득공제','표준소득액','사업단 매출','매출정산','자립성과금','자활기업 인정','한시적 인건비','참여기간','Gateway','종결','반장수당','초과근무','사례관리','상해보험','교육훈련비'],
+           asset:['가입 요건','소득상한','적립중지','탈수급장려금','만기','환수','일부지급','유예기간','내일키움장려금','자립역량교육'],
+           basic:['소득인정액','기준 중위소득','부양의무자','자동차','근로소득공제','자활급여특례','조건부과','보장가구','재산의 소득환산','긴급']};
+  var DATA={},cur='jahwal',q='',timer;
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  function norm(s){return s.toLowerCase().replace(/[\s·･‧ㆍ,.()\[\]「」『』〈〉<>:;/\-–—]/g,'');}
+  /* 쪽마다 정규화 글자열과 원문 위치 대응표를 한 번 만들어 둔다 */
+  function prep(book){
+    book.pages.forEach(function(pg){
+      if(pg.nt)return;var t=pg.t,n='',map=[];
+      for(var i=0;i<t.length;i++){var c=t[i].toLowerCase();if(/[\s·･‧ㆍ,.()\[\]「」『』〈〉<>:;/\-–—]/.test(c))continue;n+=c;map.push(i);}
+      pg.nt=n;pg.map=map;
+    });
+  }
+  function load(key){
+    if(DATA[key])return Promise.resolve(DATA[key]);
+    $('stat').textContent='자료를 불러오는 중…';
+    return fetch('data/'+key+'.json?v=1').then(function(r){return r.json();}).then(function(b){prep(b);DATA[key]=b;return b;});
+  }
+  function renderBooks(){
+    $('books').innerHTML=BOOKS.map(function(b){return '<button type="button" class="chip'+(b[0]===cur?' on':'')+'" data-k="'+b[0]+'">'+b[1]+'<small>'+b[2]+'</small></button>';}).join('');
+    $('faq').innerHTML=FAQ[cur].map(function(f){return '<button type="button" data-q="'+esc(f)+'">'+esc(f)+'</button>';}).join('');
+  }
+  $('books').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.k;renderBooks();run();});
+  $('faq').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$('q').value=b.dataset.q;run();});
+  $('q').addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(run,60);});
+  $('btnX').onclick=function(){$('q').value='';run();$('q').focus();};
+
+  function terms(){
+    var raw=$('q').value.trim();if(!raw)return [];
+    var sp=$('optSpace').checked;
+    if(!sp)return [norm(raw)].filter(Boolean);
+    return raw.split(/\s+/).map(norm).filter(Boolean);
+  }
+  function findAll(nt,t){var out=[],i=0;while((i=nt.indexOf(t,i))>=0){out.push([i,i+t.length]);i+=1;if(out.length>50)break;}return out;}
+  function snippet(pg,ranges){
+    /* 정규화 위치 → 원문 위치로 바꿔 앞뒤 70자 */
+    var t=pg.t,m=pg.map,outs=[],used=[];
+    ranges.sort(function(a,b){return a[0]-b[0];});
+    ranges.forEach(function(r){
+      var s=m[r[0]],e=m[Math.min(r[1]-1,m.length-1)]+1;
+      if(used.some(function(u){return s<u[1]&&e>u[0];}))return;
+      var a=Math.max(0,s-70),b=Math.min(t.length,e+90);used.push([a,b]);
+      var seg=t.slice(a,b).replace(/\n+/g,' ');
+      // 원문 안에서 찾은 구간을 표시: 정규화 기준으로 다시 찾기
+      outs.push({a:a,b:b,seg:seg});
+    });
+    return outs.slice(0,3);
+  }
+  function markHtml(text,ts){
+    var h=esc(text);
+    ts.forEach(function(t){
+      if(t.length<1)return;
+      // 띄어쓰기·문장부호가 끼어도 잡히게 글자 사이에 선택적 구분자 허용
+      var re=new RegExp(t.split('').map(function(c){return c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('[\\s·･‧ㆍ,.()\\[\\]「」『』〈〉<>:;/\\-–—]*'),'gi');
+      h=h.replace(re,function(x){return '<mark>'+x+'</mark>';});
+    });
+    return h;
+  }
+  function run(){
+    var ts=terms();q=$('q').value.trim();
+    load(cur).then(function(book){
+      var res=$('res');
+      if(!ts.length){res.innerHTML='';$('stat').innerHTML='<b>'+esc(book.title)+'</b> — '+book.pages.length+'쪽을 바로 찾을 준비가 됐어요. 위에 낱말을 치거나 자주 찾는 말을 누르세요.';return;}
+      var all=$('optAll').checked,hits=[];
+      book.pages.forEach(function(pg){
+        var rs=[],ok=all;var any=false;
+        ts.forEach(function(t){var f=findAll(pg.nt,t);if(f.length){any=true;rs=rs.concat(f);}else if(all)ok=false;});
+        if(all?ok:any){hits.push({pg:pg,n:rs.length,rs:rs});}
+      });
+      hits.sort(function(a,b){return b.n-a.n||a.pg.n-b.pg.n;});
+      var shown=hits.slice(0,80);
+      $('stat').innerHTML='<b>'+hits.length+'쪽</b>에서 찾았어요'+(hits.length>80?' (많이 나온 80쪽만 보여요 — 낱말을 더 붙여 보세요)':'')+' · '+esc(book.title);
+      if(!hits.length){res.innerHTML='<div class="empty">없어요. 낱말을 짧게 하거나(예: 「월차수당」→「월차」), 다른 지침 묶음을 눌러 보세요.</div>';return;}
+      res.innerHTML=shown.map(function(h){
+        var sn=snippet(h.pg,h.rs);
+        return '<div class="hit"><button type="button" class="pg" data-n="'+h.pg.n+'">'+esc(h.pg.p)+'쪽<small>'+h.n+'곳</small></button><div class="sn">'+sn.map(function(s){return '<p>… '+markHtml(s.seg,ts)+' …</p>';}).join('')+(h.n>sn.length?'<span class="more">+ '+(h.n-sn.length)+'곳 더 (쪽 열기)</span>':'')+'</div><div class="tools"><button type="button" class="ib" data-cite="'+h.pg.n+'">근거 복사</button></div></div>';
+      }).join('');
+    }).catch(function(e){$('stat').textContent='자료를 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요.';});
+  }
+  /* 쪽 보기 */
+  var pvN=0;
+  function pageByN(n){return DATA[cur].pages.find(function(p){return p.n===n;});}
+  function openPage(n){
+    var pg=pageByN(n);if(!pg)return;pvN=n;var ts=terms();
+    $('pvTitle').textContent=DATA[cur].title+' · '+pg.p+'쪽';
+    $('pvBody').innerHTML=markHtml(pg.t,ts);$('pv').classList.add('on');
+    var m=$('pvBody').querySelector('mark');if(m)m.scrollIntoView({block:'center'});else $('pvBody').scrollTop=0;
+  }
+  function step(d){var ps=DATA[cur].pages,i=ps.findIndex(function(p){return p.n===pvN;});if(i<0)return;i+=d;if(i<0||i>=ps.length)return;openPage(ps[i].n);}
+  $('pvPrev').onclick=function(){step(-1);};$('pvNext').onclick=function(){step(1);};
+  $('pvClose').onclick=function(){$('pv').classList.remove('on');};
+  $('pv').addEventListener('click',function(e){if(e.target===$('pv'))$('pv').classList.remove('on');});
+  document.addEventListener('keydown',function(e){if(!$('pv').classList.contains('on'))return;if(e.key==='Escape')$('pv').classList.remove('on');if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);});
+  $('res').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.n)openPage(+b.dataset.n);
+    if(b.dataset.cite)cite(+b.dataset.cite);
+  });
+  function cite(n){
+    var pg=pageByN(n),ts=terms(),book=DATA[cur];
+    var sn=ts.length?snippet(pg,ts.reduce(function(a,t){return a.concat(findAll(pg.nt,t));},[])):[];
+    var body=sn.length?sn[0].seg.trim():pg.t.replace(/\n+/g,' ').slice(0,120);
+    var text='『'+book.title+'』('+book.pub+') p.'+pg.p+' — "…'+body+'…"';
+    try{navigator.clipboard.writeText(text).then(function(){$('note').textContent='복사했어요: '+text;},function(){prompt('복사하세요',text);});}catch(e){prompt('복사하세요',text);}
+  }
+  $('pvCopy').onclick=function(){cite(pvN);};
+
+  /* 주소 #q=낱말&b=책 */
+  try{var hp=new URLSearchParams(location.hash.slice(1));if(hp.get('b')&&FAQ[hp.get('b')])cur=hp.get('b');if(hp.get('q'))$('q').value=hp.get('q');}catch(e){}
+  renderBooks();run();
+})();
+</script>
+</body>
+</html>
