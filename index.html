@@ -242,7 +242,7 @@ del{background:var(--del);color:var(--del-t);border-radius:3px;padding:0 1px}
   ];
   /* 원문 PDF(2026-11-11): 쪽 보기 「원문 그대로」에서 그 쪽만 PDF.js로 그린다. data/*.json 의 n = PDF 쪽 번호. 작년 자료(prev)는 PDF가 없으면 글자로만.
      GitHub Pages가 바이트 범위 요청을 받아 주므로 책 전체를 받지 않고 필요한 부분만 받는다(disableAutoFetch). 새해엔 새 PDF를 pdf/에 넣고 pdf: 만 바꾼다 */
-  var PREV_PDF={};   // 예: {'jahwal-2025':'pdf/jahwal-2025.pdf'} — 2025년판 PDF를 넣으면 비교 탭의 작년 쪽도 원문으로 볼 수 있다
+  var PREV_PDF={'jahwal-2025':'pdf/jahwal-2025.pdf'};   // 작년 자료의 원문 — 비교 탭에서 작년 쪽을 열 때(2026-11-11, 「2025년 자활사업 안내(수정)_250227.pdf」 427쪽)
   var FAQ={jahwal:['월차','주차수당','실비','조건이행','근무시간','유급휴일','지각','자활근로소득공제','표준소득액','사업단 매출','매출정산','자립성과금','자활기업 인정','한시적 인건비','참여기간','Gateway','종결','반장수당','초과근무','사례관리','상해보험','교육훈련비'],
            asset:['가입 요건','소득상한','적립중지','탈수급장려금','만기','환수','일부지급','유예기간','내일키움장려금','자립역량교육'],
            basic:['소득인정액','기준 중위소득','부양의무자','자동차','근로소득공제','자활급여특례','조건부과','보장가구','재산의 소득환산','긴급']};
@@ -363,13 +363,15 @@ del{background:var(--del);color:var(--del-t);border-radius:3px;padding:0 1px}
     if(!pdfDocs[key])pdfDocs[key]=loadLib().then(function(L){return L.getDocument({url:pdfOf(key),disableAutoFetch:true,disableStream:true,rangeChunkSize:65536}).promise;}).catch(function(e){delete pdfDocs[key];throw e;});
     return pdfDocs[key];
   }
+  var rzT;window.addEventListener('resize',function(){clearTimeout(rzT);rzT=setTimeout(function(){if($('pv').classList.contains('on')&&$('pvBody').querySelector('.pvorig canvas'))renderOrig(pvN,pvKey,pvTs);},300);});   // 창 크기가 바뀌면 원문 쪽을 다시 그림
   function renderOrig(n,key,ts){
     var tok=++rTok,body=$('pvBody');
     body.innerHTML='<div class="pvorig"><div class="msg">원문 쪽을 불러오는 중… (처음 한 번은 조금 걸려요)</div></div>';body.scrollTop=0;
     var box=body.firstChild;
     getDoc(key).then(function(doc){return doc.getPage(n);}).then(function(page){
       if(tok!==rTok)return;
-      var w=Math.max(280,Math.min(body.clientWidth-54,1100))*pvZoom,   /* 54 = 양쪽 여백 36 + 세로 스크롤 막대 자리(불러오는 동안엔 막대가 없어 폭이 넓게 잡힘) */vp1=page.getViewport({scale:1}),vp=page.getViewport({scale:w/vp1.width}),dpr=Math.min(window.devicePixelRatio||1,2.5);
+      var cw=body.clientWidth;if(cw<320)cw=Math.min(window.innerWidth-32,900);   // 창이 가려져 폭을 못 잴 때는 화면 폭으로
+      var w=Math.max(280,Math.min(cw-54,1100))*pvZoom,   /* 54 = 양쪽 여백 36 + 세로 스크롤 막대 자리(불러오는 동안엔 막대가 없어 폭이 넓게 잡힘) */vp1=page.getViewport({scale:1}),vp=page.getViewport({scale:w/vp1.width}),dpr=Math.min(window.devicePixelRatio||1,2.5);
       var wrap=document.createElement('div');wrap.className='pg';wrap.style.width=vp.width+'px';wrap.style.height=vp.height+'px';
       var cv=document.createElement('canvas');cv.width=Math.floor(vp.width*dpr);cv.height=Math.floor(vp.height*dpr);cv.style.width=vp.width+'px';cv.style.height=vp.height+'px';wrap.appendChild(cv);
       return page.render({canvasContext:cv.getContext('2d'),viewport:vp,transform:dpr!==1?[dpr,0,0,dpr,0,0]:null}).promise.then(function(){
